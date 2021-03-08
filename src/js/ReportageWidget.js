@@ -26,7 +26,19 @@ export default class ReportageWidget {
         <div class="event_date">${formattedDate}</div>
         <div class="event_message event-${event.type}">${event.message}</div>
       </div>`;
+
+    const isScrollAtBottom = this.isScrollAtBottom(this.eventsContainer);
     this.eventsContainer.insertAdjacentHTML('beforeend', eventElem);
+    if (isScrollAtBottom) {
+      this.eventsContainer.scrollTop = this.eventsContainer.scrollHeight;
+    }
+  }
+
+  isScrollAtBottom(container) {
+    return (
+      Math.ceil(container.scrollHeight)
+      === Math.ceil(container.scrollTop + container.clientHeight)
+    );
   }
 
   getFormattedDate(date) {
